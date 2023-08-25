@@ -57,6 +57,12 @@ namespace MyFirstAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             db.Products.Add(product);
             await db.SaveChangesAsync();
 
