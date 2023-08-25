@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -17,9 +18,10 @@ namespace MyFirstAPI.Models
         public bool IsAvailable {get; set;}
 
 
+        [Required] // Says the category is a required property
         public int CategoryId {get; set;}
         [JsonIgnore] // Will not Serialize (So it will not be an infinite loop)
 
-        public virtual Category Category {get; set;}
+        public virtual Category? Category {get; set;}
     }
 }

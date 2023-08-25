@@ -1,5 +1,3 @@
-using HPlusSport.API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyFirstAPI.Models;
@@ -43,11 +41,30 @@ namespace MyFirstAPI.Controllers
 
             if (product == null) 
             {
-                // returns with a status 404
+                // Returns with a status 404
                 return NotFound();
             }
-            // returns with a status 200 and the product
+            // Returns with a status 200 and the product
             return Ok(product);
+        }
+
+
+
+
+        /* POST Product */
+        /* Route: /api/products */
+
+        [HttpPost]
+        public async Task<ActionResult<Product>> PostProduct(Product product)
+        {
+            db.Products.Add(product);
+            await db.SaveChangesAsync();
+
+            return CreatedAtAction(
+                "GetProduct",
+                new {id = product.Id}, // Will automatically create a new Id.
+                product
+            );
         }
     }
 }
