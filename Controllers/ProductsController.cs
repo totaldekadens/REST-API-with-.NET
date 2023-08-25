@@ -57,7 +57,7 @@ namespace MyFirstAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-
+            // Checks if the body pass the validation of the model
             if(!ModelState.IsValid)
             {
                 return BadRequest();
@@ -72,5 +72,42 @@ namespace MyFirstAPI.Controllers
                 product
             );
         }
+
+
+
+        /* PUT Product */
+        /* Route: /api/products/{id} */
+
+        [HttpPut]
+        public async Task<ActionResult> PutProduct(int Id, Product product)
+        {
+            // Checks if the product har the same Id as the Id in the URI
+            if(Id != product.Id) 
+            {
+                return BadRequest();
+            }
+
+            db.Entry(product).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                // Checks if the product still exists
+                if(!db.Products.Any(p => p.Id == Id))
+                {
+                    return NotFound();
+                }
+                else 
+                {
+                    throw;
+                }
+            }
+            // If the update was succesfull. // comment:  Why not Ok? 
+            return NoContent();
+        } 
+
     }
 }
