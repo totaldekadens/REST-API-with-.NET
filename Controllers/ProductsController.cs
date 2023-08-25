@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyFirstAPI.Models;
 
-namespace HPlusSport.API.Controllers
+namespace MyFirstAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,19 +16,26 @@ namespace HPlusSport.API.Controllers
         public ProductsController(ShopContext context) {
             db = context;
 
-            db.Database.EnsureCreated(); // Runs the seeding. Gets the database
+            db.Database.EnsureCreated(); // Gets the database. db is now representing the database.
         }
 
 
-        [HttpGet] // Route: /api/products
+        /* GET all products */
+        /* Route: /api/products */
+
+        [HttpGet]
         public async Task<ActionResult> GetAllProducts()
         {
             // returns with a status 200 and the list of all products
             return  Ok(await db.Products.ToArrayAsync());
         }
 
-        [HttpGet("{id}")] // Route: /api/products/{id}
 
+
+        /* GET product by id */
+        /* Route: /api/products/{id} */
+
+        [HttpGet("{id}")]
           public async Task<ActionResult> GetProduct(int id)
         {
 

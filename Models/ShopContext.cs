@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using MyFirstAPI.Controllers.Models;
+using MyFirstAPI.Models;
 
-namespace HPlusSport.API.Models
+namespace MyFirstAPI
 {
     public class ShopContext : DbContext
     {
@@ -17,7 +18,7 @@ namespace HPlusSport.API.Models
             modelBuilder.Seed();
         }
 
-        public DbSet<MyFirstAPI.Models.Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
     }
 }

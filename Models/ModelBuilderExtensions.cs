@@ -2,7 +2,7 @@
 using MyFirstAPI.Controllers.Models;
 using MyFirstAPI.Models;
 
-namespace HPlusSport.API.Models
+namespace MyFirstAPI
 {
     public static class ModelBuilderExtensions
     {

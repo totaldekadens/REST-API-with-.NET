@@ -1,5 +1,5 @@
-using HPlusSport.API.Models;
 using Microsoft.EntityFrameworkCore;
+using MyFirstAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Maunally Added from me
+// Maunally Added by me
 builder.Services.AddDbContext<ShopContext>(options => 
 {
     options.UseInMemoryDatabase("Shop");
