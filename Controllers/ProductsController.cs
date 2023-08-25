@@ -136,5 +136,40 @@ namespace MyFirstAPI.Controllers
             return product;
         }        
 
+
+
+
+        /* DELETE several Products */
+        /* Route: /api/products/delete?ids={id}&ids={id} etc. */
+
+        [HttpPost("Delete")]
+        public async Task<ActionResult> DeleteMultiple([FromQuery]int[] ids)
+        {
+
+            var products = new List<Product>();
+
+            foreach(var id in ids)
+            {
+                  // Get product by id
+                var product = await db.Products.FindAsync(id);
+
+                // Checks if product exists
+                if(product == null) 
+                {
+                    return NotFound();
+                }
+
+                products.Add(product);
+
+            }
+
+            // Removes products from database
+            db.Products.RemoveRange(products);
+
+            // Saves changes in database
+            await db.SaveChangesAsync();
+
+            return Ok(products);
+        }   
     }
 }
