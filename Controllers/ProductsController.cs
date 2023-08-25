@@ -109,5 +109,32 @@ namespace MyFirstAPI.Controllers
             return NoContent();
         } 
 
+
+
+
+        /* DELETE Product */
+        /* Route: /api/products/{id} */
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        {
+            // Get product by id
+            var product = await db.Products.FindAsync(id);
+
+            // Checks if product exists
+            if(product == null) 
+            {
+                return NotFound();
+            }
+
+            // Removes product from database
+            db.Products.Remove(product);
+
+            // Saves changes in database
+            await db.SaveChangesAsync();
+            // Comment: Why not Ok(product)?
+            return product;
+        }        
+
     }
 }
